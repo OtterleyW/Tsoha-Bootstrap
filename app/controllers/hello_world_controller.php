@@ -24,7 +24,11 @@
        View::make('suunnitelmat/item.html');
      }
      
-     public static function own_items(){
+     public static function edit_item() {
+        View::make('suunnitelmat/edit_item.html');
+    }
+
+    public static function own_items(){
        View::make('suunnitelmat/own_items.html');
      }
      

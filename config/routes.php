@@ -23,3 +23,7 @@
 $routes->get('/own_items', function() {
     HelloWorldController::own_items();
 });
+
+$routes->get('/edit_item', function() {
+    HelloWorldController::edit_item();
+});
