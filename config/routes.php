@@ -20,3 +20,6 @@
     HelloWorldController::item();
 });
 
+$routes->get('/own_items', function() {
+    HelloWorldController::own_items();
+});
