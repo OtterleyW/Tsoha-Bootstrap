@@ -32,4 +32,8 @@
        View::make('suunnitelmat/own_items.html');
      }
      
-  }
+       public static function send_offer() {
+        View::make('suunnitelmat/send_offer.html');
+    }
+
+}
