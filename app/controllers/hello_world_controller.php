@@ -15,4 +15,8 @@
     public static function login(){
        View::make('suunnitelmat/login.html');
      }
+     
+     public static function item_list(){
+       View::make('suunnitelmat/item_list.html');
+     }
   }
