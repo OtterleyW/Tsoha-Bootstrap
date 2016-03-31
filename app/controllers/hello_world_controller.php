@@ -19,4 +19,7 @@
      public static function item_list(){
        View::make('suunnitelmat/item_list.html');
      }
+     public static function item(){
+       View::make('suunnitelmat/item.html');
+     }
   }

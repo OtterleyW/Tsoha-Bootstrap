@@ -15,4 +15,8 @@
   $routes->get('/item_list', function() {
     HelloWorldController::item_list();
   });
+  
+  $routes->get('/item', function() {
+    HelloWorldController::item();
+});
 
