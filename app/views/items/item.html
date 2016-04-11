@@ -1,19 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Harvinainen kolikko</h1>
-  
-  <ul>
-    <li><strong>Ilmoitus julkaistu:</strong> 25.10.2016</li>
-    <li><strong>Julkaisija:</strong> Kalle Keräilijä</li>
-    <li><strong>Status:</strong> <label class="label label-success">avoinna</label></li>
-    <li><strong>Vastatarjous:</strong> postimerkki</li>
-  </ul>
-  
-  <p>
-    Tässä on vapaa kuvaus tarjottavasta kohteesta. Tässä on vapaa kuvaus tarjottavasta kohteesta. Tässä on vapaa kuvaus tarjottavasta kohteesta. Tässä on vapaa kuvaus tarjottavasta kohteesta.
-  </p>
-  
-  <p>
-      <button class="btn btn-warning">Lukitse tarjous</button> <a href="send_offer" class="btn btn-default">Lähetä avoin tarjous</a>
-  </p>
+
+{% if message %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
+
+<h1>{{item.name}}</h1>
+
+<ul>
+    <li><strong>Ilmoitus julkaistu:</strong> {{item.added}}</li>
+    <li><strong>Julkaisija:</strong> {{item.owner_id}}</li>
+    <li><strong>Status:</strong> 
+        {% if status=="lukittu" %}
+        <label class="label label-danger">lukittu</label>
+        {% else %}
+        <label class="label label-success">avoin</label>
+        {% endif %}
+    </li>
+</ul>
+
+<p>
+    {{item.description}}
+</p>
+
+<p>
+    <button class="btn btn-warning">Lukitse tarjous</button> <a href="send_offer" class="btn btn-default">Lähetä avoin tarjous</a>
+</p>
 {% endblock %}

@@ -1,23 +1,35 @@
 <?php
 
-  $routes->get('/', function() {
+$routes->get('/', function() {
     HelloWorldController::index();
-  });
+});
 
-  $routes->get('/hiekkalaatikko', function() {
+$routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
-  });
+});
 
-  $routes->get('/login', function() {
-  HelloWorldController::login();
-  });
-  
-  $routes->get('/item_list', function() {
-    HelloWorldController::item_list();
-  });
-  
-  $routes->get('/item', function() {
-    HelloWorldController::item();
+$routes->get('/login', function() {
+    HelloWorldController::login();
+});
+
+$routes->get('/item_list', function() {
+    ItemController::index();
+});
+
+$routes->get('items/item_list', function() {
+    ItemController::index();
+});
+
+$routes->post('/items', function() {
+    ItemController::store();
+});
+
+$routes->get('/add_item', function() {
+    ItemController::add_item();
+});
+
+$routes->get('/items/:id', function($id) {
+    ItemController::show($id);
 });
 
 $routes->get('/own_items', function() {
@@ -31,3 +43,5 @@ $routes->get('/edit_item', function() {
 $routes->get('/send_offer', function() {
     HelloWorldController::send_offer();
 });
+
+

@@ -13,7 +13,6 @@ class Item extends BaseModel {
         $query->execute();
         $rows = $query->fetchAll();
         $items = array();
-
         foreach ($rows as $row) {
             $items[] = new Item(array(
                 'id' => $row['id'],
@@ -24,7 +23,6 @@ class Item extends BaseModel {
                 'added' => $row['added']
             ));
         }
-
         return $items;
     }
 
@@ -32,7 +30,6 @@ class Item extends BaseModel {
         $query = DB::connection()->prepare('SELECT * FROM Kohde WHERE id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
-
         if ($row) {
             $item = new Item(array(
                 'id' => $row['id'],
@@ -42,11 +39,18 @@ class Item extends BaseModel {
                 'status' => $row['status'],
                 'added' => $row['added']
             ));
-
             return $item;
         }
-
         return null;
+    }
+
+    public function save() {
+        // Toteuta vielä omistajan lisäys
+        
+        $query = DB::connection()->prepare('INSERT INTO Kohde (name, description, added ) VALUES (:name, :description, NOW()) RETURNING id');
+        $query->execute(array('name' => $this->name, 'description' => $this->description));
+        $row = $query->fetch();
+        $this->id = $row['id'];
     }
 
 }
