@@ -43,7 +43,7 @@ $routes->post('/items/:id/edit_item', function($id){
   ItemController::update($id);
 });
 
-$routes->post('/game/:id/destroy', function($id){
+$routes->post('/items/:id/destroy', function($id){
   ItemController::destroy($id);
 });
 

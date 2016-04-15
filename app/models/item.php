@@ -53,14 +53,18 @@ class Item extends BaseModel {
         $row = $query->fetch();
         $this->id = $row['id'];
     }
-    
+
     public function update() {
         $query = DB::connection()->prepare('UPDATE Kohde SET name=:name, description= :description WHERE id= :id RETURNING id');
-        $query->execute(array('id'=> $this->id, 'name' => $this->name, 'description' => $this->description));
+        $query->execute(array('id' => $this->id, 'name' => $this->name, 'description' => $this->description));
         $row = $query->fetch();
         $this->id = $row['id'];
     }
 
+    public function destroy() {
+        $query = DB::connection()->prepare('DELETE FROM Kohde WHERE id=:id');
+        $query->execute(array('id' => $this->id));
+    }
 
     public function validate_name() {
         $errors = array();

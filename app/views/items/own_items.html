@@ -8,7 +8,15 @@
 
 <a href="add_item" class="btn btn-default">Lisää uusi kohde</a>
 
+
+
   <h2>Vaihtoon tarjolla olevat kohteet</h2>
+  
+  {% if message %}
+<div class="alert alert-danger">
+    {{message}}
+</div>
+{% endif %}
 
   <table class="table table-striped table-bordered">
       <thead>
