@@ -36,8 +36,15 @@ $routes->get('/own_items', function() {
     HelloWorldController::own_items();
 });
 
-$routes->get('/edit_item', function() {
-    HelloWorldController::edit_item();
+$routes->get('/items/:id/edit_item', function($id){
+  ItemController::edit($id);
+});
+$routes->post('/items/:id/edit_item', function($id){
+  ItemController::update($id);
+});
+
+$routes->post('/game/:id/destroy', function($id){
+  ItemController::destroy($id);
 });
 
 $routes->get('/send_offer', function() {

@@ -11,26 +11,27 @@ class ItemController extends BaseController {
         $item = Item::find($id);
         View::make('items/item.html', array('item' => $item));
     }
-    
+
     public static function add_item() {
         View::make('items/add_item.html');
     }
 
     public static function store() {
         $params = $_POST;
-        $item = new Item(array(
+        $attributes = array(
             'name' => $params['name'],
             'description' => $params['description'],
-        ));
-        
-        Kint::dump($params);
-        
-        $item->save();
-        
-        Redirect::to('/items/' . $item->id, array('message' => 'Uusi kohde lisätty!'));
+        );
 
+        $item = new Item($attributes);
+        $errors = $item->errors();
+
+        if (count($errors) == 0) {
+            $item->save();
+            Redirect::to('/items/' . $item->id, array('message' => 'Uusi kohde lisätty!'));
+        } else {
+            View::make('items/add_item.html', array('errors' => $errors, 'attributes' => $attributes));
+        }
     }
-    
-
 
 }
