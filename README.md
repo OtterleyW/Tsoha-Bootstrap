@@ -16,4 +16,5 @@ Yleisiä linkkejä:
 * [Omien kohteiden ja tarjousten listaus] (http://jknurmi.users.cs.helsinki.fi/tsoha/own_items)
 * [Kohteen eisttely] (http://jknurmi.users.cs.helsinki.fi/tsoha/item)
 * [Kohteen muokkaus] (http://jknurmi.users.cs.helsinki.fi/tsoha/edit_item)
+* [Kohteen lisäys] (http://jknurmi.users.cs.helsinki.fi/tsoha/add_item)
 * [Tarjouksen lähetys] (http://jknurmi.users.cs.helsinki.fi/tsoha/send_offer)
