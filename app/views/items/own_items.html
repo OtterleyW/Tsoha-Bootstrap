@@ -23,19 +23,28 @@
       </thead>
 
       <tbody>
+           {% for item in items %}
           <tr>
-              <td><a href="item">Harvinainen kolikko</a></td>
-              <td>25.10.2015</td>
-              <td>Kalle Keräilijä</td>
-              <td><label class="label label-danger">lukittu</label></td>
+             <td><a href="{{base_path}}/items/{{item.id}}">{{item.name}}</a></td>
+              <td>{{item.added}}</td>
+              <!-- muokkaa tähän omistajan nimi -->
+              <td>{{item.owner_id}}</td>
+              <td>
+                  {% if status=="lukittu" %}
+                  <label class="label label-danger">lukittu</label>
+                  {% else %}
+                  <label class="label label-success">avoin</label>
+                  {% endif %}
+              </td>
               <td>postimerkki</td>
               <th> 
                 <form method="post" action="{{base_path}}/items/{{item.id}}/destroy" style="display: inline-block;">
                     <button type="submit" class="btn btn-danger">Poista</button>
                 </form>
-                <a href="edit_item" class="btn btn-default">Muokkaa</a>
+                <a href="{{base_path}}/items/{{item.id}}/edit_item"><button type="submit" class="btn btn-success">Muokkaa</button></a>
               </th>
           </tr>
+          {% endfor %}
       </tbody>
   </table>
   

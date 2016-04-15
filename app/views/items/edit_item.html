@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Lisää uusi kohde</h1>
+<h1>Muokkaa kohdetta</h1>
 
 
 {% if errors %}
@@ -14,7 +14,7 @@
 {% endif %}
 
 
-<form method="post" action="{{base_path}}/items">
+<form method="post" action="{{base_path}}/items/{{attributes.id}}/edit_item">
     <div class="form-group">
         <label>Nimi</label>
         <input type="text" name="name" class="form-control" value="{{attributes.name}}">
@@ -26,7 +26,7 @@
     </div>
 
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Lisää</button>
+        <button type="submit" class="btn btn-primary">Muokkaa</button>
     </div>
 </form>
 {% endblock %}

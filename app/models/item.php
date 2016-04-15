@@ -53,42 +53,14 @@ class Item extends BaseModel {
         $row = $query->fetch();
         $this->id = $row['id'];
     }
-
-    public static function edit($id) {
-        $item = Item::find($id);
-        View::make('items/edit_item.html', array('attributes' => $item));
+    
+    public function update() {
+        $query = DB::connection()->prepare('UPDATE Kohde SET name=:name, description= :description WHERE id= :id RETURNING id');
+        $query->execute(array('id'=> $this->id, 'name' => $this->name, 'description' => $this->description));
+        $row = $query->fetch();
+        $this->id = $row['id'];
     }
 
-    public static function update($id) {
-        $params = $_POST;
-
-        $attributes = array(
-            'id' => $row['id'],
-            'owner_id' => $row['owner_id'],
-            'name' => $row['name'],
-            'description' => $row['description'],
-            'status' => $row['status'],
-            'added' => $row['added']
-        );
-
-        $item = new Item($attributes);
-        $errors = $item->errors();
-
-        if (count($errors) > 0) {
-            View::make('items/edit_item.html', array('errors' => $errors, 'attributes' => $attributes));
-        } else {
-            $item->update();
-
-            Redirect::to('/items/' . $item->id, array('message' => 'Kohdetta on muokattu onnistuneesti!'));
-        }
-    }
-
-    public static function destroy($id) {
-        $item = new Item(array('id' => $id));
-        $item->destroy();
-
-        Redirect::to('/own_items', array('message' => 'Kohde on poistettu onnistuneesti!'));
-    }
 
     public function validate_name() {
         $errors = array();

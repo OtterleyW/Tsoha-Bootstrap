@@ -33,7 +33,7 @@ $routes->get('/items/:id', function($id) {
 });
 
 $routes->get('/own_items', function() {
-    HelloWorldController::own_items();
+    ItemController::own_items();
 });
 
 $routes->get('/items/:id/edit_item', function($id){
