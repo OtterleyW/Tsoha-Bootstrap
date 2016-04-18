@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Omat tarjoukset</h1>
 
-<p>
-    Käyttäjän Kalle Keräilijä tarjolla olevat kohteet ja tarjoukset
-</p>
+  {% if user_logged_in %}
+    <h1>Käyttäjän {{user_logged_in.name}} kohteet ja tarjoukset</h1>
+  {% endif %}
 
 <a href="add_item" class="btn btn-default">Lisää uusi kohde</a>
 
