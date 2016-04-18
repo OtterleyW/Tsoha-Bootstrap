@@ -20,5 +20,5 @@ Yleisiä linkkejä:
 * [Tarjouksen lähetys] (http://jknurmi.users.cs.helsinki.fi/tsoha/send_offer)
 
 ## Kirjautuminen
-**Käyttäjätunnus:** Kalle Keräilijä
-**Salasana:** Keräilijä1
+* **Käyttäjätunnus:** Kalle Keräilijä
+* **Salasana:** Keräilijä1
