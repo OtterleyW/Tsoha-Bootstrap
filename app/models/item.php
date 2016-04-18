@@ -48,8 +48,8 @@ class Item extends BaseModel {
     public function save() {
         // Toteuta vielä omistajan lisäys
 
-        $query = DB::connection()->prepare('INSERT INTO Kohde (name, description, added ) VALUES (:name, :description, NOW()) RETURNING id');
-        $query->execute(array('name' => $this->name, 'description' => $this->description));
+        $query = DB::connection()->prepare('INSERT INTO Kohde (name, description, added, owner_id ) VALUES (:name, :description, NOW(), :owner_id) RETURNING id');
+        $query->execute(array('name' => $this->name, 'description' => $this->description, 'owner_id' => $this->owner_id));
         $row = $query->fetch();
         $this->id = $row['id'];
     }

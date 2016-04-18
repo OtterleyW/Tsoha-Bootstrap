@@ -15,11 +15,11 @@ class ItemController extends BaseController {
     public static function add_item() {
         View::make('items/add_item.html');
     }
-    
+
     public static function own_items() {
         // muokkaa niin että hakee omistajan mukaan
         $items = Item::all();
-        View::make('items/own_items.html',  array('items' => $items));
+        View::make('items/own_items.html', array('items' => $items));
     }
 
     public static function store() {
@@ -27,6 +27,7 @@ class ItemController extends BaseController {
         $attributes = array(
             'name' => $params['name'],
             'description' => $params['description'],
+            'owner_id' => $params ['owner_id']
         );
 
         $item = new Item($attributes);
@@ -39,8 +40,8 @@ class ItemController extends BaseController {
             View::make('items/add_item.html', array('errors' => $errors, 'attributes' => $attributes));
         }
     }
-    
-     public static function edit($id) {
+
+    public static function edit($id) {
         $item = Item::find($id);
         View::make('items/edit_item.html', array('attributes' => $item));
     }
@@ -48,7 +49,7 @@ class ItemController extends BaseController {
     public static function update($id) {
         $params = $_POST;
 
-        $attributes = array(    
+        $attributes = array(
             'id' => $id,
             'name' => $params['name'],
             'description' => $params['description']
@@ -72,5 +73,4 @@ class ItemController extends BaseController {
 
         Redirect::to('/own_items', array('message' => 'Kohde on poistettu onnistuneesti!'));
     }
-
 }

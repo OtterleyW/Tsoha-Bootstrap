@@ -24,6 +24,10 @@
         <label>Kuvaus</label>
         <textarea name="description" class="form-control">{{attributes.description}}</textarea>
     </div>
+    
+    {% if user_logged_in %}
+    <input type="hidden" name="owner_id" value="{{user_logged_in.id}}">
+    {% endif %}
 
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Lisää</button>
