@@ -18,3 +18,7 @@ Yleisiä linkkejä:
 * [Kohteen muokkaus] (http://jknurmi.users.cs.helsinki.fi/tsoha/edit_item)
 * [Kohteen lisäys] (http://jknurmi.users.cs.helsinki.fi/tsoha/add_item)
 * [Tarjouksen lähetys] (http://jknurmi.users.cs.helsinki.fi/tsoha/send_offer)
+
+## Kirjautuminen
+**Käyttäjätunnus:** Kalle Keräilijä
+**Salasana:** Keräilijä1
