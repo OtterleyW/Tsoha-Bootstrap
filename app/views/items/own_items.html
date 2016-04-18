@@ -24,7 +24,6 @@
               <th>Lisäyspäivä</th>
               <th>Julkaisija</th>
               <th>Status</th>
-              <th>Haluttu vaihtokohde</th>
               <th></th>
           </tr>
       </thead>
@@ -43,7 +42,6 @@
                   <label class="label label-success">avoin</label>
                   {% endif %}
               </td>
-              <td>postimerkki</td>
               <th> 
                 <form method="post" action="{{base_path}}/items/{{item.id}}/destroy" style="display: inline-block;">
                     <button type="submit" class="btn btn-danger">Poista</button>
