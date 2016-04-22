@@ -55,6 +55,10 @@ $routes->post('/items/:id/destroy', function($id){
   ItemController::destroy($id);
 });
 
+$routes->get('/offers/:id', function($id) {
+    ItemController::show($id);
+});
+
 $routes->get('/send_offer', function() {
     HelloWorldController::send_offer();
 });
