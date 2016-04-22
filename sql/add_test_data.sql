@@ -11,7 +11,6 @@ INSERT INTO Kayttaja (username, email, password) VALUES ('Kaisa Katselija', 'kka
 INSERT INTO Kohde (owner_id, name, description, status, added) VALUES ('1', 'Kolikko', 'Hieno kiiltävä kolikko', 'avoinna', NOW());
 INSERT INTO Kohde (owner_id, name, description, offer_wanted, status, added) VALUES ('2', 'Maljakko', 'Hieno kiiltävä maljakko', 'Harvinainen postimerkki', 'avoinna', NOW());
 INSERT INTO Kohde (owner_id, name, description, offer_wanted, status, added) VALUES ('3', 'Postimerkki', 'Harvinainen postimerkki', 'Vanhat valokuvat', 'avoinna', NOW());
-INSERT INTO Kohde (owner_id, name, description, offer_wanted, status, added) VALUES ('1', 'Antiikki astiasto', 'Vanha ja pölyinen astiasto', 'avoinna', NOW());
 
 
 -- Tarjous-taulun testidata

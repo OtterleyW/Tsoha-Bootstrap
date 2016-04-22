@@ -1,7 +1,7 @@
 <?php
 
 class Offer extends BaseModel {
-    public $id, $sender_id, $sender_name, $reciever_id, $reciever_name, $item_id, $item_name, $message, $offer_type, $sent;
+    public $id, $sender_id, $sender_name, $reciever_id, $reciever_name, $item_id, $item_name, $owner_name, $message, $offer_type, $sent;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -49,7 +49,7 @@ class Offer extends BaseModel {
     }
     
         public static function find($id) {
-        $query = DB::connection()->prepare('SELECT * FROM Tarjous INNER JOIN Kohde ON Tarjous.item_id = Kohde.id WHERE Tarjous.id = :id');
+        $query = DB::connection()->prepare('SELECT * FROM Tarjous INNER JOIN Kohde ON Tarjous.item_id = Kohde.id INNER JOIN Kayttaja ON Kohde.owner_id = Kayttaja.id WHERE Tarjous.id = :id');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
         if ($row) {
@@ -59,6 +59,7 @@ class Offer extends BaseModel {
                 'sender_id' => $row['sender_id'],
                 'item_id' => $row['item_id'],
                 'item_name' => $row['name'],
+                'owner_name' => $row['username'],
                 'message' => $row['message'],
                 'offer_type' => $row['offer_type'],
                 'sent' => $row['sent']
