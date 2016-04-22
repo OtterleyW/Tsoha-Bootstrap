@@ -3,7 +3,7 @@
 class OfferController extends BaseController {
 
     public static function show($id) {
-        $item = Offer::find($id);
+        $offer = Offer::find($id);
         View::make('offers/offer.html', array('offer' => $offer));
     }
     
@@ -11,7 +11,8 @@ class OfferController extends BaseController {
         self::check_logged_in();
         $user = self::get_user_logged_in();
         $user_id = $user->id;
-        $offers = Offer::allRecieved($user_id);
-        View::make('offers/own_offers.html', array('offers' => $offers));
+        $recieved_offers = Offer::allRecieved($user_id);
+        $sent_offers = Offer::allSent($user_id);
+        View::make('offers/own_offers.html', array('recieved_offers' => $recieved_offers, 'sent_offers' => $sent_offers));
     }
 }

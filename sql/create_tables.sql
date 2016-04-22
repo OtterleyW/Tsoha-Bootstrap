@@ -21,7 +21,7 @@ CREATE TABLE Tarjous(
   sender_id INTEGER REFERENCES Kayttaja(id),
   reciever_id INTEGER REFERENCES Kayttaja(id),
   item_id INTEGER REFERENCES Kohde(id),
-  description varchar(400),
+  message varchar(400),
   offer_type varchar(50),
   sent DATE
 );

@@ -7,7 +7,7 @@
 </div>
 {% endif %}
 
-<h1>Tarjous kohteesta {{offer.item_id}}</h1>
+<h1>Tarjous kohteesta {{offer.item_name}}</h1>
 
 <ul>
     <li><strong>Lähettäjä:</strong> {{offer.sender_id}}</li>
@@ -17,12 +17,7 @@
 
 <h2>Viesti:</h2>
 <p>
-    {{offer.description}}
+    {{offer.message}}
 </p>
 
-
-<p>
-    <a href="accept_offer" class="btn btn-success">Lähetä avoin tarjous</a>
-    <a href="refuse_offer" class="btn btn-danger">Lähetä avoin tarjous</a>
-</p>
 {% endblock %}

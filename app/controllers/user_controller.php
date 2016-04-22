@@ -10,8 +10,6 @@ class UserController extends BaseController {
         $params = $_POST;
 
         $user = User::authenticate($params['username'], $params['password']);
-        Kint::trace();
-        Kint::dump($user);
 
         if (!$user) {
             View::make('user/login.html', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'username' => $params['username']));

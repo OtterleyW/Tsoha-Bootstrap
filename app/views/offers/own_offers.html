@@ -5,6 +5,8 @@
     <h1>Käyttäjän {{user_logged_in.username}} tarjoukset</h1>
   {% endif %}
   
+ 
+  
   <h2>Saadut tarjoukset</h2>
 
   <table class="table table-striped table-bordered">
@@ -18,9 +20,9 @@
       </thead>
 
       <tbody>
-          {% for offer in offers %}
+          {% for offer in recieved_offers %}
           <tr>
-              <td><a href="{{base_path}}/items/{{offer.item_id}}">Tämä kohde</a></td>
+              <td><a href="{{base_path}}/items/{{offer.item_id}}">{{offer.item_name}}</a></td>
               <td>{{offer.sent}}</td>
               <td>{{offer.sender_name}}</td>
 
@@ -33,49 +35,31 @@
   </table>
   
   <h2>Lähetetyt tarjoukset</h2>
+
   <table class="table table-striped table-bordered">
       <thead>
           <tr>
               <th>Kohde</th>
-              <th>Päivämäärä</th>
-              <th>Kohteen omistaja</th>
-              <th>Tarjouksen tyyppi</th>
+              <th>Lähetetty</th>
+              <th>Vastaanottaja</th>
               <th></th>
           </tr>
       </thead>
 
       <tbody>
+          {% for offer in sent_offers %}
           <tr>
-              <td><a href="item">Harvinainen maljakko</a></td>
-              <td>27.10.2015</td>
-              <td>Hanna Hamstraaja</td>
-              <td><label class="label label-warning">avoin tarjous</label></td>
-              <td>
-                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#own-offer">Katso tarjous</button>
+              <td><a href="{{base_path}}/items/{{offer.item_id}}">{{offer.item_name}}</a></td>
+              <td>{{offer.sent}}</td>
+              <td>{{offer.reciever_name}}</td>
 
-                  <!-- Modal -->
-                  <div id="own-offer" class="modal fade" role="dialog">
-                      <div class="modal-dialog">
-
-                          <!-- Modal content-->
-                          <div class="modal-content">
-                              <div class="modal-header">
-                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                  <h4 class="modal-title">Tarjous käyttäjälle Hanna Hamstraaja</h4>
-                              </div>
-                              <div class="modal-body">
-                                  <p>Tarjoan vaihdossa kolikoita.</p>
-                                  <button class="btn btn-danger">Peru tarjous</button>
-                              </div>
-                              <div class="modal-footer">
-                                  <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
-                              </div>
-                          </div>
-
-                      </div>
-                  </div>
-              </td>
+              <th> 
+                  <a href="{{base_path}}/offers/{{offer.id}}"><button type="submit" class="btn btn-default">Katso tarjous</button></a>
+              </th>
           </tr>
+          {% endfor %}
       </tbody>
   </table>
+  
+
 {% endblock %}
