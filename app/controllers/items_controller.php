@@ -13,16 +13,18 @@ class ItemController extends BaseController {
     }
 
     public static function add_item() {
+        self::check_logged_in();
         View::make('items/add_item.html');
     }
 
     public static function own_items() {
-        // muokkaa niin että hakee omistajan mukaan
+        self::check_logged_in();
         $items = Item::all();
         View::make('items/own_items.html', array('items' => $items));
     }
 
     public static function store() {
+        self::check_logged_in();
         $params = $_POST;
         $attributes = array(
             'name' => $params['name'],
@@ -42,11 +44,13 @@ class ItemController extends BaseController {
     }
 
     public static function edit($id) {
+        self::check_logged_in();
         $item = Item::find($id);
         View::make('items/edit_item.html', array('attributes' => $item));
     }
 
     public static function update($id) {
+        self::check_logged_in();
         $params = $_POST;
 
         $attributes = array(
@@ -68,6 +72,7 @@ class ItemController extends BaseController {
     }
 
     public static function destroy($id) {
+        self::check_logged_in();
         $item = new Item(array('id' => $id));
         $item->destroy();
 

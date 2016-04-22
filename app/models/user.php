@@ -1,20 +1,20 @@
 <?php
 
 class User extends BaseModel {
-    public $id, $name, $email, $password;
+    public $id, $username, $email, $password;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
     }
 
-    public static function authenticate($name, $password) {
-        $query = DB::connection()->prepare('SELECT * FROM Kayttaja WHERE name = :name AND password = :password LIMIT 1');
-        $query->execute(array('name' => $name, 'password' => $password));
+    public static function authenticate($username, $password) {
+        $query = DB::connection()->prepare('SELECT * FROM Kayttaja WHERE username = :username AND password = :password LIMIT 1');
+        $query->execute(array('username' => $username, 'password' => $password));
         $row = $query->fetch();
         if ($row) {
             $user = new User(array(
                 'id' => $row['id'],
-                'name' => $row['name'],
+                'username' => $row['username'],
                 'email' => $row['email'],
             ));
             return $user;
@@ -30,7 +30,7 @@ class User extends BaseModel {
         if ($row) {
             $user = new User(array(
                 'id' => $row['id'],
-                'name' => $row['name'],
+                'username' => $row['username'],
                 'email' => $row['email'],
             ));
             return $user;

@@ -11,8 +11,13 @@ $routes->get('/hiekkalaatikko', function() {
 $routes->get('/login', function(){
   UserController::login();
 });
+
 $routes->post('/login', function(){
   UserController::handle_login();
+});
+
+$routes->post('/logout', function(){
+  UserController::logout();
 });
 
 $routes->get('/item_list', function() {

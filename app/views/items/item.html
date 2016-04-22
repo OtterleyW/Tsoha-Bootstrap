@@ -11,7 +11,7 @@
 
 <ul>
     <li><strong>Ilmoitus julkaistu:</strong> {{item.added}}</li>
-    <li><strong>Julkaisija:</strong> {{item.owner_id}}</li>
+    <li><strong>Julkaisija:</strong> {{item.owner_name}}</li>
     <li><strong>Status:</strong> 
         {% if status=="lukittu" %}
         <label class="label label-danger">lukittu</label>
@@ -21,11 +21,24 @@
     </li>
 </ul>
 
+<h2>Kuvaus:</h2>
 <p>
     {{item.description}}
 </p>
 
+{% if item.offer_wanted %}
+<h2>Vaihdossa halutaan:</h2>
 <p>
-    <button class="btn btn-warning">Lukitse tarjous</button> <a href="send_offer" class="btn btn-default">Lähetä avoin tarjous</a>
+    {{item.offer_wanted}}
+</p>
+
+<p>
+    <button class="btn btn-warning">Lukitse tarjous</button>
+</p>
+
+{% endif %}
+
+<p>
+    <a href="send_offer" class="btn btn-default">Lähetä avoin tarjous</a>
 </p>
 {% endblock %}

@@ -2,7 +2,7 @@
 
 class Item extends BaseModel {
 
-    public $id, $owner_id, $name, $description, $status, $added;
+    public $id, $owner_id, $owner_name, $name, $description, $offer_wanted, $status, $added;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -10,7 +10,7 @@ class Item extends BaseModel {
     }
 
     public static function all() {
-        $query = DB::connection()->prepare('SELECT * FROM Kohde');
+        $query = DB::connection()->prepare('SELECT * FROM Kohde INNER JOIN Kayttaja ON Kohde.owner_id = Kayttaja.id');
         $query->execute();
         $rows = $query->fetchAll();
         $items = array();
@@ -18,25 +18,30 @@ class Item extends BaseModel {
             $items[] = new Item(array(
                 'id' => $row['id'],
                 'owner_id' => $row['owner_id'],
+                'owner_name' => $row['username'],
                 'name' => $row['name'],
                 'description' => $row['description'],
+                'offer_wanted' => $row['offer_wanted'],
                 'status' => $row['status'],
                 'added' => $row['added']
             ));
         }
+        
         return $items;
     }
 
     public static function find($id) {
-        $query = DB::connection()->prepare('SELECT * FROM Kohde WHERE id = :id LIMIT 1');
+        $query = DB::connection()->prepare('SELECT * FROM Kohde, Kayttaja WHERE Kohde.id = :id AND Kohde.owner_id = Kayttaja.id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
         if ($row) {
             $item = new Item(array(
                 'id' => $row['id'],
                 'owner_id' => $row['owner_id'],
+                'owner_name' => $row['username'],
                 'name' => $row['name'],
                 'description' => $row['description'],
+                'offer_wanted' => $row['offer_wanted'],
                 'status' => $row['status'],
                 'added' => $row['added']
             ));
@@ -86,6 +91,21 @@ class Item extends BaseModel {
         }
 
         return $errors;
+    }
+
+    private function find_owner($id) {
+        $query = DB::connection()->prepare('SELECT * FROM Kayttaha WHERE id = :id LIMIT 1');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+        if ($row) {
+            $item = new Item(array(
+                'id' => $row['id'],
+                'name' => $row['name'],
+                'email' => $row['email']
+            ));
+            return $item;
+        }
+        return null;
     }
 
 }

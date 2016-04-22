@@ -17,8 +17,13 @@ class UserController extends BaseController {
             View::make('user/login.html', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'username' => $params['username']));
         } else {
             $_SESSION['user'] = $user->id;
-            Redirect::to('/item_list', array('message' => 'Tervetuloa takaisin ' . $user->name . '!'));
+            Redirect::to('/item_list', array('message' => 'Tervetuloa takaisin ' . $user->username . '!'));
         }
     }
+    
+    public static function logout(){
+    $_SESSION['user'] = null;
+    Redirect::to('/login', array('message' => 'Olet kirjautunut ulos!'));
+  }
 
 }
