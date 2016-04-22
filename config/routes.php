@@ -56,7 +56,11 @@ $routes->post('/items/:id/destroy', function($id){
 });
 
 $routes->get('/offers/:id', function($id) {
-    ItemController::show($id);
+    OfferController::show($id);
+});
+
+$routes->get('/own_offers', function() {
+    OfferController::own_offers();
 });
 
 $routes->get('/send_offer', function() {
