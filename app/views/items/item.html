@@ -26,6 +26,7 @@
     {{item.description}}
 </p>
 
+<!--
 {% if item.offer_wanted %}
 <h2>Vaihdossa halutaan:</h2>
 <p>
@@ -37,8 +38,9 @@
 </p>
 
 {% endif %}
+-->
 
 <p>
-    <a href="send_offer" class="btn btn-default">Lähetä avoin tarjous</a>
+    <a href="{{base_path}}/send_offer" class="btn btn-default">Lähetä avoin tarjous</a>
 </p>
 {% endblock %}

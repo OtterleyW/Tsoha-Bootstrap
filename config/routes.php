@@ -64,7 +64,10 @@ $routes->get('/own_offers', function() {
 });
 
 $routes->get('/send_offer', function() {
-    HelloWorldController::send_offer();
+    OfferController::send_offer();
 });
 
+$routes->post('/send_offer', function() {
+    OfferController::store();
+});
 

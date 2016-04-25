@@ -25,9 +25,14 @@
         <textarea name="description" class="form-control">{{attributes.description}}</textarea>
     </div>
     
-    {% if user_logged_in %}
+     <div class="form-group">
+        <label>Haluttu vastatarjous</label>
+        <textarea name="offer_wanted" class="form-control">{{attributes.offer_wanted}}</textarea>
+    </div>
+    
+    
     <input type="hidden" name="owner_id" value="{{user_logged_in.id}}">
-    {% endif %}
+    
 
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Lisää</button>

@@ -40,8 +40,10 @@
           <ul class="nav navbar-nav">
             <!-- Navigaation linkit -->
             <li><a href="{{base_path}}/item_list">Tarjolla vaihtoon</a></li>
+            {% if user_logged_in %}
             <li><a href="{{base_path}}/own_items">Omat kohteet</a></li>
             <li><a href="{{base_path}}/own_offers">Omat tarjoukset</a></li>
+            {% endif %}
           </ul>
             {% if user_logged_in %}
             <form class="navbar-form navbar-right" method="post" action="{{base_path}}/logout">

@@ -29,7 +29,8 @@ class ItemController extends BaseController {
         $attributes = array(
             'name' => $params['name'],
             'description' => $params['description'],
-            'owner_id' => $params ['owner_id']
+            'owner_id' => $params ['owner_id'],
+            'offer_wanted' => $params ['offer_wanted']
         );
 
         $item = new Item($attributes);
@@ -75,6 +76,8 @@ class ItemController extends BaseController {
         self::check_logged_in();
         $item = new Item(array('id' => $id));
         $item->destroy();
+        
+        //Toteuta vielä, että poistaa tähän liittyvät tarjoukset kun poistetaan kohde, kunhan tarjouksen poisto toteutettu
 
         Redirect::to('/own_items', array('message' => 'Kohde on poistettu onnistuneesti!'));
     }

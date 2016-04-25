@@ -37,5 +37,7 @@ class User extends BaseModel {
         }
         return null;
     }
+    
+    // Toteutettava vielä rekisteröinti
 
 }
