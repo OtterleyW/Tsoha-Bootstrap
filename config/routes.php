@@ -71,3 +71,15 @@ $routes->post('/send_offer', function() {
     OfferController::store();
 });
 
+$routes->get('/offers/:id/edit_offer', function($id){
+  OfferController::edit_offer($id);
+});
+$routes->post('/offers/:id/edit_offer', function($id){
+  OfferController::update($id);
+});
+
+$routes->post('/offers/:id/destroy', function($id){
+  OfferController::destroy($id);
+});
+
+

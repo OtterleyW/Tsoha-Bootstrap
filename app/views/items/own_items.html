@@ -41,12 +41,12 @@
                 <label class="label label-success">avoin</label>
                 {% endif %}
             </td>
-            <th> 
+            <td> 
                 <form method="post" action="{{base_path}}/items/{{item.id}}/destroy" style="display: inline-block;">
                     <button type="submit" class="btn btn-danger">Poista</button>
                 </form>
                 <a href="{{base_path}}/items/{{item.id}}/edit_item"><button type="submit" class="btn btn-success">Muokkaa</button></a>
-            </th>
+            </td>
         </tr>
         {% endif %}
         {% endfor %}

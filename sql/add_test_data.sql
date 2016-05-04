@@ -15,6 +15,6 @@ INSERT INTO Kohde (owner_id, name, description, offer_wanted, status, added) VAL
 
 -- Tarjous-taulun testidata
 
-INSERT INTO Tarjous (sender_id, reciever_id, item_id, message, offer_type, sent) VALUES ('1','2','1','Tämä on hieno tarjous','vastatarjous',NOW());
-INSERT INTO Tarjous (sender_id, reciever_id, item_id, message, offer_type, sent) VALUES ('2','1','2','Tämä on hieno toinen tarjous','vastatarjous',NOW());
+INSERT INTO Tarjous (sender_id, reciever_id, item_id, message, offer_type, sent) VALUES ('2','1','1','Tämä on hieno tarjous','vastatarjous',NOW());
+INSERT INTO Tarjous (sender_id, reciever_id, item_id, message, offer_type, sent) VALUES ('1','2','2','Tämä on hieno toinen tarjous','vastatarjous',NOW());
 INSERT INTO Tarjous (sender_id, reciever_id, item_id, message, offer_type, sent) VALUES ('1','3','3','Tämä on hieno kolmas tarjous','vastatarjous',NOW());

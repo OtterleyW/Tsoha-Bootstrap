@@ -75,10 +75,16 @@ class ItemController extends BaseController {
     public static function destroy($id) {
         self::check_logged_in();
         $item = new Item(array('id' => $id));
-        $item->destroy();
         
-        //Toteuta vielä, että poistaa tähän liittyvät tarjoukset kun poistetaan kohde, kunhan tarjouksen poisto toteutettu
+        $offers = OfferController::get_offers_by_item_id($item);
+
+        foreach ($offers as $offer) {
+            OfferController::destroyNoRedirect($offer->id);
+        }
+        
+        $item->destroy();
 
         Redirect::to('/own_items', array('message' => 'Kohde on poistettu onnistuneesti!'));
     }
+
 }

@@ -41,10 +41,10 @@
 -->
 
 {% if user_logged_in %}
-{% if item.owner_id != user_logged_in.id %}
-<p>
-    <a href="{{base_path}}/send_offer" class="btn btn-default">Lähetä avoin tarjous</a>
-</p>
-{% endif %}
+    {% if item.owner_id != user_logged_in.id %}
+        <p>
+            <a href="{{base_path}}/send_offer" class="btn btn-default">Lähetä avoin tarjous</a>
+        </p>
+    {% endif %}
 {% endif %}
 {% endblock %}

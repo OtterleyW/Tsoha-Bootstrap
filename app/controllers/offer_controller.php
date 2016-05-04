@@ -15,10 +15,24 @@ class OfferController extends BaseController {
         $sent_offers = Offer::allSent($user_id);
         View::make('offers/own_offers.html', array('recieved_offers' => $recieved_offers, 'sent_offers' => $sent_offers));
     }
+    
+    public static function get_offers_by_item_id($item) {
+        self::check_logged_in();
+        $item_id = $item->id;
+        $offers = Offer::byItemId($item_id);
+        
+        return $offers;
+    }
 
     public static function send_offer() {
         self::check_logged_in();
         View::make('offers/send_offer.html');
+    }
+
+    public static function edit_offer($id) {
+        self::check_logged_in();
+        $offer = Offer::find($id);
+        View::make('offers/edit_offer.html', array('attributes' => $offer));
     }
 
     public static function store() {
@@ -31,7 +45,7 @@ class OfferController extends BaseController {
         );
 
         $item = new Offer($attributes);
-        
+
         $errors = $item->errors();
 
         if (count($errors) == 0) {
@@ -40,6 +54,41 @@ class OfferController extends BaseController {
         } else {
             View::make('offers/send_offer.html', array('errors' => $errors, 'attributes' => $attributes));
         }
+    }
+
+    public static function update($id) {
+        self::check_logged_in();
+        $params = $_POST;
+
+        $attributes = array(
+            'id' => $id,
+            'message' => $params ['message'],
+        );
+
+        $offer = new Offer($attributes);
+        $errors = $offer->errors();
+
+        if (count($errors) > 0) {
+            View::make('offers/edit_item.html', array('errors' => $errors, 'attributes' => $attributes));
+        } else {
+            $offer->update();
+
+            Redirect::to('/offers/' . $offer->id, array('message' => 'Tarjousta on muokattu onnistuneesti!'));
+        }
+    }
+    
+    public static function destroy($id) {
+        self::check_logged_in();
+        $offer = new Offer(array('id' => $id));
+        $offer->destroy();
+
+        Redirect::to('/own_offers', array('message' => 'Tarjous on poistettu onnistuneesti!'));
+    }
+    
+    public static function destroyNoRedirect($id) {
+        self::check_logged_in();
+        $offer = new Offer(array('id' => $id));
+        $offer->destroy();
     }
 
 }

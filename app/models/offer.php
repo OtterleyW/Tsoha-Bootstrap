@@ -35,7 +35,6 @@ class Offer extends BaseModel {
         $query->execute(array('user_id' => $user_id));
         $rows = $query->fetchAll();
         $offers = array();
-       kint::dump($rows); 
         foreach ($rows as $row) {
             $offers[] = new Offer(array(
                 'id' => $row['tarjousid'],
@@ -51,12 +50,32 @@ class Offer extends BaseModel {
         
         return $offers;
     }
+    
+        public static function byItemId($item_id) {
+        $query = DB::connection()->prepare('SELECT Tarjous.id AS tarjousid, Tarjous.reciever_id, Tarjous.item_id, Tarjous.message, Tarjous.offer_type, Tarjous.sent, Kayttaja.id as kayttajaid, Kayttaja.username, Kohde.id as kohdeid, Kohde.name FROM Tarjous, Kayttaja, Kohde WHERE Tarjous.reciever_id = Kayttaja.id AND Tarjous.item_id = Kohde.id AND Tarjous.item_id = :item_id');
+        $query->execute(array('item_id' => $item_id));
+        $rows = $query->fetchAll();
+        $offers = array();
+        foreach ($rows as $row) {
+            $offers[] = new Offer(array(
+                'id' => $row['tarjousid'],
+                'reciever_id' => $row['reciever_id'],
+                'reciever_name' => $row['username'],
+                'item_id' => $row['item_id'],
+                'item_name' => $row['name'],
+                'message' => $row['message'],
+                'offer_type' => $row['offer_type'],
+                'sent' => $row['sent']
+            ));
+        }
+
+        return $offers;
+    }
 
     public static function find($id) {
         $query = DB::connection()->prepare('SELECT Tarjous.id AS tarjousid, Tarjous.reciever_id, Tarjous.sender_id, Tarjous.item_id, Tarjous.message, Tarjous.offer_type, Tarjous.sent, Kayttaja.id as kayttajaid, Kayttaja.username, Kohde.id as kohdeid, Kohde.name FROM Tarjous, Kayttaja, Kohde WHERE Tarjous.reciever_id = Kayttaja.id AND Tarjous.item_id = Kohde.id AND Tarjous.id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
-        kint::dump($row);
         if ($row) {
             $offer = new Offer(array(
                 'id' => $row['tarjousid'],
@@ -81,8 +100,18 @@ class Offer extends BaseModel {
         $this->id = $row['id'];
     }
 
-    // Toteutettava vielä muokkaus ja poisto
-    
+        public function update() {
+        $query = DB::connection()->prepare('UPDATE Tarjous SET message= :message WHERE id= :id RETURNING id');
+        $query->execute(array('id' => $this->id, 'message' => $this->message));
+        $row = $query->fetch();
+        $this->id = $row['id'];
+    }
+
+        public function destroy() {
+        $query = DB::connection()->prepare('DELETE FROM Tarjous WHERE id=:id');
+        $query->execute(array('id' => $this->id));
+    }
+
     public function validate_message() {
         $errors = array();
         if ($this->message == '' || $this->message == null) {
