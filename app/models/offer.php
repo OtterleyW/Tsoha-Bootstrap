@@ -75,7 +75,7 @@ class Offer extends BaseModel {
     }
 
     public static function find($id) {
-        $query = DB::connection()->prepare('SELECT Tarjous.id AS tarjousid, Tarjous.reciever_id, Tarjous.sender_id, Tarjous.item_id, Tarjous.message, Tarjous.offer_type, Tarjous.sent, Kayttaja.id as kayttajaid, Kayttaja.username, Kohde.id as kohdeid, Kohde.name FROM Tarjous, Kayttaja, Kohde WHERE Tarjous.reciever_id = Kayttaja.id AND Tarjous.item_id = Kohde.id AND Tarjous.id = :id LIMIT 1');
+        $query = DB::connection()->prepare('SELECT Tarjous.id AS tarjousid, Tarjous.reciever_id, Tarjous.sender_id, Tarjous.item_id, Tarjous.message, Tarjous.offer_type, Tarjous.sent, Kayttaja.id as kayttajaid, Kayttaja.username, Kayttaja.email, Kohde.id as kohdeid, Kohde.name FROM Tarjous, Kayttaja, Kohde WHERE Tarjous.reciever_id = Kayttaja.id AND Tarjous.item_id = Kohde.id AND Tarjous.id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
         if ($row) {
@@ -86,6 +86,7 @@ class Offer extends BaseModel {
                 'item_id' => $row['item_id'],
                 'item_name' => $row['name'],
                 'owner_name' => $row['username'],
+                'owner_email' => $row['email'],
                 'message' => $row['message'],
                 'offer_type' => $row['offer_type'],
                 'sent' => $row['sent']

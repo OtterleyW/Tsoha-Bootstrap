@@ -26,25 +26,26 @@
     {{item.description}}
 </p>
 
-<!--
+
 {% if item.offer_wanted %}
 <h2>Vaihdossa halutaan:</h2>
 <p>
     {{item.offer_wanted}}
 </p>
 
-<p>
-    <button class="btn btn-warning">Lukitse tarjous</button>
-</p>
-
 {% endif %}
--->
 
 {% if user_logged_in %}
     {% if item.owner_id != user_logged_in.id %}
         <p>
             <a href="{{base_path}}/send_offer" class="btn btn-default">Lähetä avoin tarjous</a>
+            
+     {% if item.offer_wanted %}
+            
+             <a href="{{base_path}}/lock_offer"  class="btn btn-warning">Lukitse tarjous</a>
+
         </p>
+     {% endif %}
     {% endif %}
 {% endif %}
 {% endblock %}

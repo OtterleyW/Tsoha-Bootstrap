@@ -12,6 +12,15 @@
 <ul>
     <li><strong>Kohteen omistaja:</strong> {{offer.owner_name}}</li>
     <li><strong>Lähetetty:</strong> {{offer.sent}}</li>
+    <li><strong>Tarjouksen tila:</strong>
+        {% if offer.offer_type=="hyväksytty" %}
+        <label class="label label-success">{{offer.offer_type}}</label>
+        {% elseif offer.offer_type=="hylätty" %}
+        <label class="label label-danger">{{offer.offer_type}}</label>
+        {% else %}
+        <label class="label label-warning">{{offer.offer_type}}</label>
+        {% endif %}
+    </li>
 </ul>
 
 <h2>Viesti:</h2>
@@ -19,18 +28,29 @@
     {{offer.message}}
 </p>
 
-{% if user_logged_in.id == offer.reciever_id %}
-<p>
+{% if offer.offer_type == "avoin" %}
+    {% if user_logged_in.id == offer.reciever_id %}
+    <div class="alert alert-warning">
+        <p>
+            Hyväksymällä tarjouksen hylkäät automaattisesti muut samasta kohteesta tehdyt tarjoukset
+        </p>
+    </div>
+    
+            <form method="post" action="{{base_path}}/offers/{{offer.id}}/decline" style="display: inline-block;">
+                <button type="submit" class="btn btn-danger">Hylkää tarjous</button>
+            </form>
+            <form method="post" action="{{base_path}}/offers/{{offer.id}}/accept" style="display: inline-block;">
+                <button type="submit" class="btn btn-success">Hyväksy tarjous</button>
+            </form>    
+    {% endif %}
 
-<form method="post" action="{{base_path}}/offers/{{offer.id}}/accept" style="display: inline-block;">
-    <button type="submit" class="btn btn-success">Hyväksy tarjous</button>
-</form>    
-<form method="post" action="{{base_path}}/offers/{{offer.id}}/decline" style="display: inline-block;">
-    <button type="submit" class="btn btn-danger">Hylkää tarjous</button>
-</form>
+    {% if user_logged_in.id == offer.sender_id %}
+            <form method="post" action="{{base_path}}/offers/{{offer.id}}/destroy" style="display: inline-block;">
+                <button type="submit" class="btn btn-danger">Poista tarjous</button>
+            </form>
 
-</p>
-
+            <a href="{{base_path}}/offers/{{offer.id}}/edit_offer"><button type="submit" class="btn btn-success">Muokkaa tarjousta</button></a>
+    {% endif %}
 {% endif %}
 
 {% endblock %}

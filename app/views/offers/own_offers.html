@@ -26,7 +26,15 @@
               <td><a href="{{base_path}}/items/{{offer.item_id}}">{{offer.item_name}}</a></td>
               <td>{{offer.sent}}</td>
               <td>{{offer.sender_name}}</td>
-              <td>{{offer.offer_type}}</td>
+              <td>
+                  {% if offer.offer_type=="hyväksytty" %}
+                  <label class="label label-success">{{offer.offer_type}}</label>
+                  {% elseif offer.offer_type=="hylätty" %}
+                  <label class="label label-danger">{{offer.offer_type}}</label>
+                  {% else %}
+                  <label class="label label-warning">{{offer.offer_type}}</label>
+                  {% endif %}
+              </td>
               <td> 
                   <a href="{{base_path}}/offers/{{offer.id}}"><button type="submit" class="btn btn-default">Katso tarjous</button></a>
               </td>
@@ -49,7 +57,7 @@
               <th>Kohde</th>
               <th>Lähetetty</th>
               <th>Vastaanottaja</th>
-              <th></th>
+              <th>Tarjouksen tila</th>
               <th></th>
           </tr>
       </thead>
@@ -60,15 +68,17 @@
               <td><a href="{{base_path}}/items/{{offer.item_id}}">{{offer.item_name}}</a></td>
               <td>{{offer.sent}}</td>
               <td>{{offer.reciever_name}}</td>
-
+              <td>
+                  {% if offer.offer_type=="hyväksytty" %}
+                  <label class="label label-success">{{offer.offer_type}}</label>
+                  {% elseif offer.offer_type=="hylätty" %}
+                  <label class="label label-danger">{{offer.offer_type}}</label>
+                  {% else %}
+                  <label class="label label-warning">{{offer.offer_type}}</label>
+                  {% endif %}
+              </td>
               <td> 
                   <a href="{{base_path}}/offers/{{offer.id}}"><button type="submit" class="btn btn-default">Katso tarjous</button></a>
-              </td>
-              <td>
-                  <form method="post" action="{{base_path}}/offers/{{offer.id}}/destroy" style="display: inline-block;">
-                      <button type="submit" class="btn btn-danger">Poista</button>
-                  </form>
-                  <a href="{{base_path}}/offers/{{offer.id}}/edit_offer"><button type="submit" class="btn btn-success">Muokkaa</button></a>
               </td>
           </tr>
           {% endfor %}
