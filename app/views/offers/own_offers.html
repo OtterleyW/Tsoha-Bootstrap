@@ -31,8 +31,10 @@
                   <label class="label label-success">{{offer.offer_type}}</label>
                   {% elseif offer.offer_type=="hylätty" %}
                   <label class="label label-danger">{{offer.offer_type}}</label>
-                  {% else %}
+                  {% elseif offer.offer_type=="lukittu" %}
                   <label class="label label-warning">{{offer.offer_type}}</label>
+                  {% else %}
+                  <label class="label label-default">{{offer.offer_type}}</label>
                   {% endif %}
               </td>
               <td> 
@@ -73,8 +75,10 @@
                   <label class="label label-success">{{offer.offer_type}}</label>
                   {% elseif offer.offer_type=="hylätty" %}
                   <label class="label label-danger">{{offer.offer_type}}</label>
-                  {% else %}
+                  {% elseif offer.offer_type=="lukittu" %}
                   <label class="label label-warning">{{offer.offer_type}}</label>
+                  {% else %}
+                  <label class="label label-default">{{offer.offer_type}}</label>
                   {% endif %}
               </td>
               <td> 

@@ -55,6 +55,7 @@ $routes->post('/items/:id/destroy', function($id){
   ItemController::destroy($id);
 });
 
+
 $routes->get('/offers/:id', function($id) {
     OfferController::show($id);
 });
@@ -90,5 +91,7 @@ $routes->post('/offers/:id/decline', function($id) {
     OfferController::decline($id);
 });
 
-
+$routes->post('/offers/:id/unlock', function($id) {
+    OfferController::unlock($id);
+});
 

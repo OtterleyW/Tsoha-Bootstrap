@@ -44,13 +44,13 @@ class OfferController extends BaseController {
             'offer_type' => $params ['offer_type']
         );
 
-        $item = new Offer($attributes);
+        $offer = new Offer($attributes);
 
-        $errors = $item->errors();
+        $errors = $offer->errors();
 
         if (count($errors) == 0) {
-            $item->save();
-            Redirect::to('/offers/' . $item->id, array('message' => 'Tarjous lähetetty!'));
+            $offer->save();
+            Redirect::to('/offers/' . $offer->id, array('message' => 'Tarjous lähetetty!'));
         } else {
             View::make('offers/send_offer.html', array('errors' => $errors, 'attributes' => $attributes));
         }
@@ -119,12 +119,27 @@ class OfferController extends BaseController {
 
         Redirect::to('/offers/' . $offer->id, array('message' => 'Tarjous hylätty!'));
     }
-    
+
     public static function declineNoRedirect($id) {
         self::check_logged_in();
         $offer = new Offer(array('id' => $id, 'offer_type' => 'hylätty'));
         $offer->changeType();
         $offer = $offer->find($id);
+    }
+    
+        public static function unlock($id) {
+        self::check_logged_in();
+        $offer = new Offer(array('id' => $id, 'offer_type' => 'hylätty'));
+        $offer->changeType();
+        $offer = $offer->find($id);
+        $status = "";
+
+        ItemController::changeStatus($offer->item_id, $status);
+
+        $offers = $offer->byItemId($offer->item_id);
+
+
+        Redirect::to('/offers/' . $offer->id, array('message' => 'Lukko avattu!'));
     }
 
 }

@@ -17,8 +17,10 @@
         <label class="label label-success">{{offer.offer_type}}</label>
         {% elseif offer.offer_type=="hylätty" %}
         <label class="label label-danger">{{offer.offer_type}}</label>
-        {% else %}
+        {% elseif offer.offer_type=="lukittu" %}
         <label class="label label-warning">{{offer.offer_type}}</label>
+        {% else %}
+        <label class="label label-default">{{offer.offer_type}}</label>
         {% endif %}
     </li>
 </ul>
@@ -29,28 +31,50 @@
 </p>
 
 {% if offer.offer_type == "avoin" %}
-    {% if user_logged_in.id == offer.reciever_id %}
+{% if user_logged_in.id == offer.reciever_id %}
     <div class="alert alert-warning">
         <p>
             Hyväksymällä tarjouksen hylkäät automaattisesti muut samasta kohteesta tehdyt tarjoukset
         </p>
     </div>
-    
-            <form method="post" action="{{base_path}}/offers/{{offer.id}}/decline" style="display: inline-block;">
-                <button type="submit" class="btn btn-danger">Hylkää tarjous</button>
-            </form>
-            <form method="post" action="{{base_path}}/offers/{{offer.id}}/accept" style="display: inline-block;">
-                <button type="submit" class="btn btn-success">Hyväksy tarjous</button>
-            </form>    
-    {% endif %}
 
-    {% if user_logged_in.id == offer.sender_id %}
-            <form method="post" action="{{base_path}}/offers/{{offer.id}}/destroy" style="display: inline-block;">
-                <button type="submit" class="btn btn-danger">Poista tarjous</button>
-            </form>
+    <form method="post" action="{{base_path}}/offers/{{offer.id}}/decline" style="display: inline-block;">
+        <button type="submit" class="btn btn-danger">Hylkää tarjous</button>
+    </form>
+    <form method="post" action="{{base_path}}/offers/{{offer.id}}/accept" style="display: inline-block;">
+        <button type="submit" class="btn btn-success">Hyväksy tarjous</button>
+    </form>    
+{% endif %}
 
-            <a href="{{base_path}}/offers/{{offer.id}}/edit_offer"><button type="submit" class="btn btn-success">Muokkaa tarjousta</button></a>
-    {% endif %}
+{% if user_logged_in.id == offer.sender_id %}
+    <form method="post" action="{{base_path}}/offers/{{offer.id}}/destroy" style="display: inline-block;">
+        <button type="submit" class="btn btn-danger">Poista tarjous</button>
+    </form>
+
+    <a href="{{base_path}}/offers/{{offer.id}}/edit_offer"><button type="submit" class="btn btn-success">Muokkaa tarjousta</button></a>
+{% endif %}
+{% endif %}
+
+{% if offer.offer_type == "lukittu" %}
+{% if user_logged_in.id == offer.reciever_id or  user_logged_in.id == offer.sender_id%}
+    <form method="post" action="{{base_path}}/offers/{{offer.id}}/unlock" style="display: inline-block;">
+        <button type="submit" class="btn btn-warning">Avaa lukko</button>
+    </form>
+{% endif %}
+{% if user_logged_in.id == offer.reciever_id %}
+    <form method="post" action="{{base_path}}/offers/{{offer.id}}/accept" style="display: inline-block;">
+        <button type="submit" class="btn btn-success">Hyväksy tarjous</button>
+    </form>    
+{% endif %}
+{% endif %}
+
+
+{% if offer.offer_type == "hylätty" %}
+{% if user_logged_in.id == offer.reciever_id or  user_logged_in.id == offer.sender_id%}
+    <form method="post" action="{{base_path}}/offers/{{offer.id}}/destroy" style="display: inline-block;">
+        <button type="submit" class="btn btn-danger">Poista tarjous</button>
+    </form>
+{% endif %}
 {% endif %}
 
 {% endblock %}
