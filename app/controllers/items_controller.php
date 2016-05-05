@@ -57,7 +57,8 @@ class ItemController extends BaseController {
         $attributes = array(
             'id' => $id,
             'name' => $params['name'],
-            'description' => $params['description']
+            'description' => $params['description'],
+            'offer_wanted' => $params ['offer_wanted']
         );
 
         $item = new Item($attributes);
