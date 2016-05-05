@@ -5,9 +5,18 @@
     <h1>Tervetuloa Tavaranvaihtoon!</h1>
   </div>
 
-  <p>
-    <a href="login" class="btn btn-primary btn-lg">Kirjaudu sisään <span class="glyphicon glyphicon-chevron-right"></span></a>
-  </p>
- 
+{% if user_logged_in %}
     
+<p>
+    <a href="item_list" class="btn btn-primary btn-lg">Tarjolla vaihtoon <span class="glyphicon glyphicon-list-alt"></span></a>
+    <a href="own_items" class="btn btn-primary btn-lg">Omat kohteet <span class="glyphicon glyphicon-gift"></span></a>
+    <a href="own_offers" class="btn btn-primary btn-lg">Omat tarjoukset <span class="glyphicon glyphicon-send"></span></a>
+</p>
+
+{% else %}
+    <p>
+        <a href="login" class="btn btn-primary btn-lg">Kirjaudu sisään <span class="glyphicon glyphicon-chevron-right"></span></a>
+    </p>  
+ 
+{% endif %}    
 {% endblock %}

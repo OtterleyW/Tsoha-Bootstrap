@@ -1,6 +1,7 @@
 <?php
 
 class User extends BaseModel {
+
     public $id, $username, $email, $password;
 
     public function __construct($attributes) {
@@ -22,8 +23,8 @@ class User extends BaseModel {
             return null;
         }
     }
-    
-     public static function find($id) {
+
+    public static function find($id) {
         $query = DB::connection()->prepare('SELECT * FROM Kayttaja WHERE id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
@@ -37,7 +38,5 @@ class User extends BaseModel {
         }
         return null;
     }
-    
-    // Toteutettava vielä rekisteröinti
 
 }
