@@ -6,7 +6,7 @@ class Item extends BaseModel {
         $this->validators = array('validate_name', 'validate_description');
     }
     public static function all() {
-        $query = DB::connection()->prepare('SELECT Kohde.id AS kohdeid, Kohde.owner_id, Kohde.name, Kohde.description, Kohde.offer_wanted, Kohde.status, Kohde.added, Kayttaja.id AS kayttajaid, Kayttaja.username FROM Kohde, Kayttaja WHERE Kohde.owner_id = Kayttaja.id');
+        $query = DB::connection()->prepare('SELECT Kohde.id AS kohdeid, Kohde.owner_id, Kohde.name, Kohde.description, Kohde.offer_wanted, Kohde.status, Kohde.added, Kayttaja.id AS kayttajaid, Kayttaja.username FROM Kohde, Kayttaja WHERE Kohde.owner_id = Kayttaja.id ORDER BY Kohde.status DESC');
         $query->execute();
         $rows = $query->fetchAll();
         $items = array();
@@ -66,6 +66,12 @@ class Item extends BaseModel {
         $query = DB::connection()->prepare('DELETE FROM Kohde WHERE id=:id');
         $query->execute(array('id' => $this->id));
     }
+    
+    public function changeStatus() {
+        $query = DB::connection()->prepare('UPDATE Kohde SET status=:status WHERE id= :id');
+        $query->execute(array('id' => $this->id, 'status' => $this->status));
+    }
+    
     public function validate_name() {
         $errors = array();
         if ($this->name == '' || $this->name == null) {

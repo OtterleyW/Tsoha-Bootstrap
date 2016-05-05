@@ -13,10 +13,10 @@
     <li><strong>Ilmoitus julkaistu:</strong> {{item.added}}</li>
     <li><strong>Julkaisija:</strong> {{item.owner_name}}</li>
     <li><strong>Status:</strong> 
-        {% if status=="lukittu" %}
-        <label class="label label-danger">lukittu</label>
-        {% else %}
+        {% if item.status=="" %}
         <label class="label label-success">avoin</label>
+        {% else %}
+        <label class="label label-warning">{{item.status}}</label>
         {% endif %}
     </li>
 </ul>

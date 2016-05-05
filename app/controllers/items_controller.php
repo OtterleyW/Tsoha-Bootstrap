@@ -86,5 +86,11 @@ class ItemController extends BaseController {
 
         Redirect::to('/own_items', array('message' => 'Kohde on poistettu onnistuneesti!'));
     }
+    
+   public static function changeStatus($id, $status) {
+       self::check_logged_in();
+       $item = new Item(array('id' => $id, 'status' => $status));
+       $item->changeStatus();
+   }
 
 }

@@ -15,12 +15,12 @@ class OfferController extends BaseController {
         $sent_offers = Offer::allSent($user_id);
         View::make('offers/own_offers.html', array('recieved_offers' => $recieved_offers, 'sent_offers' => $sent_offers));
     }
-    
+
     public static function get_offers_by_item_id($item) {
         self::check_logged_in();
         $item_id = $item->id;
         $offers = Offer::byItemId($item_id);
-        
+
         return $offers;
     }
 
@@ -76,7 +76,7 @@ class OfferController extends BaseController {
             Redirect::to('/offers/' . $offer->id, array('message' => 'Tarjousta on muokattu onnistuneesti!'));
         }
     }
-    
+
     public static function destroy($id) {
         self::check_logged_in();
         $offer = new Offer(array('id' => $id));
@@ -84,11 +84,47 @@ class OfferController extends BaseController {
 
         Redirect::to('/own_offers', array('message' => 'Tarjous on poistettu onnistuneesti!'));
     }
-    
+
     public static function destroyNoRedirect($id) {
         self::check_logged_in();
         $offer = new Offer(array('id' => $id));
         $offer->destroy();
+    }
+
+    public static function accept($id) {
+        self::check_logged_in();
+        $offer = new Offer(array('id' => $id, 'offer_type' => 'hyväksytty'));
+        $offer->changeType();
+        $offer = $offer->find($id);
+        $status = "varattu";
+
+        ItemController::changeStatus($offer->item_id, $status);
+
+        $offers = $offer->byItemId($offer->item_id);
+
+        foreach ($offers as $offer) {
+            if ($offer->id != $id) {
+                OfferController::declineNoRedirect($offer->id);
+            }
+        }
+
+        Redirect::to('/offers/' . $offer->id, array('message' => 'Tarjous hyväksytty!'));
+    }
+
+    public static function decline($id) {
+        self::check_logged_in();
+        $offer = new Offer(array('id' => $id, 'offer_type' => 'hylätty'));
+        $offer->changeType();
+        $offer = $offer->find($id);
+
+        Redirect::to('/offers/' . $offer->id, array('message' => 'Tarjous hylätty!'));
+    }
+    
+    public static function declineNoRedirect($id) {
+        self::check_logged_in();
+        $offer = new Offer(array('id' => $id, 'offer_type' => 'hylätty'));
+        $offer->changeType();
+        $offer = $offer->find($id);
     }
 
 }

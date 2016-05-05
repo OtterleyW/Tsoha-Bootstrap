@@ -19,5 +19,18 @@
     {{offer.message}}
 </p>
 
+{% if user_logged_in.id == offer.reciever_id %}
+<p>
+
+<form method="post" action="{{base_path}}/offers/{{offer.id}}/accept" style="display: inline-block;">
+    <button type="submit" class="btn btn-success">Hyväksy tarjous</button>
+</form>    
+<form method="post" action="{{base_path}}/offers/{{offer.id}}/decline" style="display: inline-block;">
+    <button type="submit" class="btn btn-danger">Hylkää tarjous</button>
+</form>
+
+</p>
+
+{% endif %}
 
 {% endblock %}

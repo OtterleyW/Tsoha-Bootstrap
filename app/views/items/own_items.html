@@ -35,10 +35,10 @@
             <!-- muokkaa tähän omistajan nimi -->
             <td>{{item.owner_name}}</td>
             <td>
-                {% if status=="lukittu" %}
-                <label class="label label-danger">lukittu</label>
-                {% else %}
+                {% if item.status=="" %}
                 <label class="label label-success">avoin</label>
+                {% else %}
+                <label class="label label-warning">{{item.status}}</label>
                 {% endif %}
             </td>
             <td> 

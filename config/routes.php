@@ -82,4 +82,13 @@ $routes->post('/offers/:id/destroy', function($id){
   OfferController::destroy($id);
 });
 
+$routes->post('/offers/:id/accept', function($id) {
+    OfferController::accept($id);
+});
+
+$routes->post('/offers/:id/decline', function($id) {
+    OfferController::decline($id);
+});
+
+
 
