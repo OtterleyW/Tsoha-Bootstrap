@@ -77,4 +77,24 @@
 {% endif %}
 {% endif %}
 
+{% if offer.offer_type == "hyväksytty" %}
+{% if user_logged_in.id == offer.reciever_id or  user_logged_in.id == offer.sender_id %}
+<div class="alert alert-success">
+    <p>
+        Tarjous on hyväksytty! Sovi tarkemmin kaupoista ottamalla yhteyttä sähköpostitse:<br />
+        <b>Kohteen tarjoaja:</b> <a href="mailto:{{offer.owner_email}}">{{offer.owner_email}}</a><br />
+        <b>Kohteen haluaja:</b> <a href="mailto:{{offer.sender_email}}">{{offer.sender_email}}</a>
+    </p>
+</div>
+<div class="alert alert-warning">
+    <p>Ilmoittamalla kaupat sovituksi poistat kohteen vaihtojärjestelmästä!</p>
+</div>
+    <p>
+        <form method="post" action="{{base_path}}/items/{{offer.item_id}}/destroy" style="display: inline-block;">
+        <button type="submit" class="btn btn-success">Kaupat sovittu</button>
+    </form>
+    </p>
+
+{% endif %}
+{% endif %}
 {% endblock %}

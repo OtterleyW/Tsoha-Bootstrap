@@ -17,7 +17,7 @@ class TagController extends BaseController {
             $tag = Tag::find($tag_name);
             
             if ($tag==null){
-                Tag::save($tag);
+                $tag = Tag::save($tag_name);
             }
             
             $tag->saveTagToItem($item_id);

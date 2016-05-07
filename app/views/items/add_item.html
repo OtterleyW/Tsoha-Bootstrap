@@ -29,9 +29,16 @@
         <label>Haluttu vastatarjous</label>
         <textarea name="offer_wanted" class="form-control">{{attributes.offer_wanted}}</textarea>
     </div>
+
     
     <div class="form-group">
         <label>Tunnisteet</label>
+        
+        <p class="alert alert-warning">
+            Voit lisätä tunnisteita toistaiseksi ainoastaan kohdetta luodessa, eikä niitä voi muokata jälkikäteen!<br />
+            Erota tunnisteet pilkulla esim. antiikki, keräilytavara, raha
+        </p>
+        
         <textarea name="tags" class="form-control">{{attributes.tags}}</textarea>
     </div>
 

@@ -2,7 +2,7 @@
 
 class Offer extends BaseModel {
 
-    public $id, $sender_id, $sender_name, $reciever_id, $reciever_name, $item_id, $item_name, $owner_name, $message, $offer_type, $sent;
+    public $id, $sender_id, $sender_name, $sender_email, $reciever_id, $reciever_name, $item_id, $item_name, $owner_name, $owner_email, $message, $offer_type, $sent;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -75,7 +75,8 @@ class Offer extends BaseModel {
     }
 
     public static function find($id) {
-        $query = DB::connection()->prepare('SELECT Tarjous.id AS tarjousid, Tarjous.reciever_id, Tarjous.sender_id, Tarjous.item_id, Tarjous.message, Tarjous.offer_type, Tarjous.sent, Kayttaja.id as kayttajaid, Kayttaja.username, Kayttaja.email, Kohde.id as kohdeid, Kohde.name FROM Tarjous, Kayttaja, Kohde WHERE Tarjous.reciever_id = Kayttaja.id AND Tarjous.item_id = Kohde.id AND Tarjous.id = :id LIMIT 1');
+
+        $query = DB::connection()->prepare('SELECT Tarjous.id AS tarjousid, Tarjous.reciever_id, Tarjous.sender_id, Tarjous.item_id, Tarjous.message, Tarjous.offer_type, Tarjous.sent, Kayttaja.id as kayttajaid, Kayttaja.username, Kayttaja.email, Kohde.id as kohdeid, Kohde.name, Sender.email AS sender_email FROM Tarjous INNER JOIN Kayttaja Sender ON Sender.id = Tarjous.sender_id INNER JOIN Kayttaja ON Tarjous.reciever_id = Kayttaja.id INNER JOIN Kohde ON Tarjous.item_id = Kohde.id WHERE Tarjous.id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
         if ($row) {
@@ -83,6 +84,7 @@ class Offer extends BaseModel {
                 'id' => $row['tarjousid'],
                 'reciever_id' => $row['reciever_id'],
                 'sender_id' => $row['sender_id'],
+                'sender_email' => $row['sender_email'],
                 'item_id' => $row['item_id'],
                 'item_name' => $row['name'],
                 'owner_name' => $row['username'],
@@ -91,6 +93,7 @@ class Offer extends BaseModel {
                 'offer_type' => $row['offer_type'],
                 'sent' => $row['sent']
             ));
+            
             return $offer;
         }
         return null;
