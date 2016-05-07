@@ -45,6 +45,11 @@ class OfferController extends BaseController {
         );
 
         $offer = new Offer($attributes);
+        
+        $status = $params['item_status'];
+        if ($status){
+            ItemController::changeStatus($_SESSION['item_id'], $status);
+        }
 
         $errors = $offer->errors();
 
