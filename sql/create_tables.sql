@@ -20,7 +20,7 @@ CREATE TABLE Tarjous(
   id SERIAL PRIMARY KEY,
   sender_id INTEGER REFERENCES Kayttaja(id),
   reciever_id INTEGER REFERENCES Kayttaja(id),
-  item_id INTEGER REFERENCES Kohde(id),
+  item_id INTEGER REFERENCES Kohde(id) ON DELETE CASCADE,
   message varchar(400),
   offer_type varchar(50),
   sent DATE

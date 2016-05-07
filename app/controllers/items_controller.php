@@ -9,7 +9,7 @@ class ItemController extends BaseController {
 
     public static function show($id) {
         $item = Item::find($id);
-        $tags = Item::getTags($id);
+        $tags = TagController::getTags($id);
         
         View::make('items/item.html', array('item' => $item, 'tags' => $tags));
     }
@@ -32,7 +32,8 @@ class ItemController extends BaseController {
             'name' => $params['name'],
             'description' => $params['description'],
             'owner_id' => $params ['owner_id'],
-            'offer_wanted' => $params ['offer_wanted']
+            'offer_wanted' => $params ['offer_wanted'],
+            'tags' => $params ['tags']
         );
 
         $item = new Item($attributes);
@@ -40,6 +41,7 @@ class ItemController extends BaseController {
 
         if (count($errors) == 0) {
             $item->save();
+            TagController::store($_POST['tags'], $item->id);
             Redirect::to('/items/' . $item->id, array('message' => 'Uusi kohde lisätty!'));
         } else {
             View::make('items/add_item.html', array('errors' => $errors, 'attributes' => $attributes));

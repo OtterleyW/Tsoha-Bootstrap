@@ -2,7 +2,7 @@
 
 class Item extends BaseModel {
 
-    public $id, $owner_id, $owner_name, $name, $description, $offer_wanted, $status, $added;
+    public $id, $owner_id, $owner_name, $name, $description, $offer_wanted, $status, $added, $tags;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -57,15 +57,6 @@ class Item extends BaseModel {
         return null;
     }
 
-    public function getTags($id) {
-        $query = DB::connection()->prepare('SELECT Tunniste.tag FROM Tunniste_kohde INNER JOIN Kohde ON Kohde.id = Tunniste_Kohde.item_id INNER JOIN Tunniste ON Tunniste.id = Tunniste_kohde.tag_id WHERE Kohde.id = :id');
-        $query->execute(array('id' => $id));
-        $rows = $query->fetchAll();
-        $tags = $rows;
-        
-        return $tags;
-    }
-
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Kohde (name, description, added, owner_id, offer_wanted ) VALUES (:name, :description, NOW(), :owner_id, :offer_wanted) RETURNING id');
         $query->execute(array('name' => $this->name, 'description' => $this->description, 'owner_id' => $this->owner_id, 'offer_wanted' => $this->offer_wanted));
@@ -111,5 +102,6 @@ class Item extends BaseModel {
         }
         return $errors;
     }
+    
 
 }
