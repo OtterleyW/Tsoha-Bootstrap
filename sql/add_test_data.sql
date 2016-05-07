@@ -22,3 +22,20 @@ INSERT INTO Tarjous (sender_id, reciever_id, item_id, message, offer_type, sent)
 INSERT INTO Tarjous (sender_id, reciever_id, item_id, message, offer_type, sent) VALUES ('1','3','3','Tämä on hieno kolmas tarjous','avoin',NOW());
 INSERT INTO Tarjous (sender_id, reciever_id, item_id, message, offer_type, sent) VALUES ('3','1','1','Tämä on hieno neljäs tarjous','avoin',NOW());
 INSERT INTO Tarjous (sender_id, reciever_id, item_id, message, offer_type, sent) VALUES ('1','3','5','Tämä on hieno neljäs tarjous','avoin',NOW());
+
+
+-- Tunniste-taulun testidata
+INSERT INTO Tunniste (tag) VALUES ('antiikki');
+INSERT INTO Tunniste (tag) VALUES ('raha');
+INSERT INTO Tunniste (tag) VALUES ('keramiikka');
+INSERT INTO Tunniste (tag) VALUES ('paperitavara');
+INSERT INTO Tunniste (tag) VALUES ('urheiluväline');
+
+-- Tunniste_kohde-taulun testidata
+INSERT INTO Tunniste_kohde (item_id, tag_id) VALUES ('1', '1');
+INSERT INTO Tunniste_kohde (item_id, tag_id) VALUES ('1', '2');
+INSERT INTO Tunniste_kohde (item_id, tag_id) VALUES ('2', '1');
+INSERT INTO Tunniste_kohde (item_id, tag_id) VALUES ('2', '2');
+INSERT INTO Tunniste_kohde (item_id, tag_id) VALUES ('3', '1');
+INSERT INTO Tunniste_kohde (item_id, tag_id) VALUES ('3', '4');
+INSERT INTO Tunniste_kohde (item_id, tag_id) VALUES ('6', '5');

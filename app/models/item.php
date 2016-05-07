@@ -1,10 +1,14 @@
 <?php
+
 class Item extends BaseModel {
+
     public $id, $owner_id, $owner_name, $name, $description, $offer_wanted, $status, $added;
+
     public function __construct($attributes) {
         parent::__construct($attributes);
         $this->validators = array('validate_name', 'validate_description');
     }
+
     public static function all() {
         $query = DB::connection()->prepare('SELECT Kohde.id AS kohdeid, Kohde.owner_id, Kohde.name, Kohde.description, Kohde.offer_wanted, Kohde.status, Kohde.added, Kayttaja.id AS kayttajaid, Kayttaja.username FROM Kohde, Kayttaja WHERE Kohde.owner_id = Kayttaja.id ORDER BY Kohde.status DESC');
         $query->execute();
@@ -22,11 +26,12 @@ class Item extends BaseModel {
                 'added' => $row['added']
             ));
         }
-        
-        
-        
+
+
+
         return $items;
     }
+
     public static function find($id) {
         $query = DB::connection()->prepare('SELECT Kohde.id AS kohdeid, Kohde.owner_id, Kohde.name, Kohde.description, Kohde.offer_wanted, Kohde.status, Kohde.added, Kayttaja.id AS kayttajaid, Kayttaja.username FROM Kohde, Kayttaja WHERE Kohde.id=:id AND Kohde.owner_id = Kayttaja.id LIMIT 1');
         $query->execute(array('id' => $id));
@@ -40,38 +45,51 @@ class Item extends BaseModel {
                 'description' => $row['description'],
                 'offer_wanted' => $row['offer_wanted'],
                 'status' => $row['status'],
-                'added' => $row['added']
+                'added' => $row['added'],
             ));
             
+
             $_SESSION['item_id'] = $row['kohdeid'];
             $_SESSION['item_owner'] = $row['owner_id'];
-                    
+
             return $item;
         }
         return null;
     }
+
+    public function getTags($id) {
+        $query = DB::connection()->prepare('SELECT Tunniste.tag FROM Tunniste_kohde INNER JOIN Kohde ON Kohde.id = Tunniste_Kohde.item_id INNER JOIN Tunniste ON Tunniste.id = Tunniste_kohde.tag_id WHERE Kohde.id = :id');
+        $query->execute(array('id' => $id));
+        $rows = $query->fetchAll();
+        $tags = $rows;
+        
+        return $tags;
+    }
+
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Kohde (name, description, added, owner_id, offer_wanted ) VALUES (:name, :description, NOW(), :owner_id, :offer_wanted) RETURNING id');
         $query->execute(array('name' => $this->name, 'description' => $this->description, 'owner_id' => $this->owner_id, 'offer_wanted' => $this->offer_wanted));
         $row = $query->fetch();
         $this->id = $row['id'];
     }
+
     public function update() {
         $query = DB::connection()->prepare('UPDATE Kohde SET name=:name, description= :description, offer_wanted= :offer_wanted WHERE id= :id RETURNING id');
         $query->execute(array('id' => $this->id, 'name' => $this->name, 'description' => $this->description, 'offer_wanted' => $this->offer_wanted));
         $row = $query->fetch();
         $this->id = $row['id'];
     }
+
     public function destroy() {
         $query = DB::connection()->prepare('DELETE FROM Kohde WHERE id=:id');
         $query->execute(array('id' => $this->id));
     }
-    
+
     public function changeStatus() {
         $query = DB::connection()->prepare('UPDATE Kohde SET status=:status WHERE id= :id');
         $query->execute(array('id' => $this->id, 'status' => $this->status));
     }
-    
+
     public function validate_name() {
         $errors = array();
         if ($this->name == '' || $this->name == null) {
@@ -82,6 +100,7 @@ class Item extends BaseModel {
         }
         return $errors;
     }
+
     public function validate_description() {
         $errors = array();
         if ($this->description == '' || $this->description == null) {

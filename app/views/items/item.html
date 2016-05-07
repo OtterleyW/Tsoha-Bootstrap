@@ -35,6 +35,14 @@
 
 {% endif %}
 
+<h2>Tunnisteet:</h2>
+<p>
+    {% for tag in tags %}
+    <span class="label label-default">{{tag.tag}}</span>
+    {% endfor %}
+</p>
+
+
 {% if user_logged_in and item.status == "" %}
 {% if item.owner_id != user_logged_in.id %}
 

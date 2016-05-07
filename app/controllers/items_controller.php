@@ -9,7 +9,9 @@ class ItemController extends BaseController {
 
     public static function show($id) {
         $item = Item::find($id);
-        View::make('items/item.html', array('item' => $item));
+        $tags = Item::getTags($id);
+        
+        View::make('items/item.html', array('item' => $item, 'tags' => $tags));
     }
 
     public static function add_item() {
