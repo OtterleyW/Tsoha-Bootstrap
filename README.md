@@ -7,7 +7,7 @@ Yleisiä linkkejä:
 
 ## Työn aihe
 
-[Tavaranvaihto](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Tavaranvaihto.html) 
+[Tavaranvaihto](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Tavaranvaihto.html) (hieman sovellettuna)
 
 ## Sivut
 
