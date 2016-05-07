@@ -9,17 +9,9 @@ Yleisiä linkkejä:
 
 [Tavaranvaihto](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Tavaranvaihto.html) (hieman sovellettuna)
 
-## Sivut
+## Kirjautuminen
 
 * [Kirjautuminen] (http://jknurmi.users.cs.helsinki.fi/tsoha/login)
-* [Tarjonnan listaus] (http://jknurmi.users.cs.helsinki.fi/tsoha/item_list)
-* [Omien kohteiden ja tarjousten listaus] (http://jknurmi.users.cs.helsinki.fi/tsoha/own_items)
-* [Kohteen eisttely] (http://jknurmi.users.cs.helsinki.fi/tsoha/item)
-* [Kohteen muokkaus] (http://jknurmi.users.cs.helsinki.fi/tsoha/edit_item)
-* [Kohteen lisäys] (http://jknurmi.users.cs.helsinki.fi/tsoha/add_item)
-* [Tarjouksen lähetys] (http://jknurmi.users.cs.helsinki.fi/tsoha/send_offer)
-
-## Kirjautuminen
 
 Sovellusta voi testata useammalla käyttäjällä:
 
